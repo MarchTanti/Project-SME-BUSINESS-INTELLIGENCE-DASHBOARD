@@ -1,26 +1,171 @@
 @import "tailwindcss";
-
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --teal: #2ba8a2;
+  --teal-light: #3cc4bd;
+  --teal-dark: #1e8c86;
+  --teal-bg: #e8f6f5;
+  --gold: #ffd23f;
+  --gold-light: #ffe47a;
+  --gold-dark: #e6b800;
+  --coral: #ef6c4a;
+  --coral-light: #ff8a6a;
+  --coral-dark: #d45233;
+  --cream: #fff8e7;
+  --sky: #5dade2;
+  --surface: #eff8f7;
+  --success: #27ae60;
+  --ink: #17504d;
+
+  --shadow-card: 0 4px 20px rgba(43, 168, 162, 0.1);
+  --shadow-accent-glow: 0 4px 20px rgba(255, 210, 63, 0.4);
+  --shadow-coral-glow: 0 4px 20px rgba(239, 108, 74, 0.35);
+  --shadow-teal-glow: 0 4px 20px rgba(43, 168, 162, 0.3);
+  --shadow-sky-glow: 0 4px 16px rgba(93, 173, 226, 0.3);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+html,
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--surface);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei",
+    "Segoe UI", "Noto Sans Thai", sans-serif;
+  font-weight: 500;
+}
+
+/* ---------- Ribbon (หัวเว็บ) ---------- */
+.f7-ribbon {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  padding: 0.55rem 2rem;
+  background: var(--cream);
+  border: 3px solid var(--ink);
+  color: var(--teal-dark);
+  font-weight: 800;
+  font-size: 1.5rem;
+  letter-spacing: 0.3em;
+  transform: rotate(-2deg);
+}
+.f7-ribbon::before,
+.f7-ribbon::after {
+  content: "";
+  position: absolute;
+  top: 8px;
+  width: 22px;
+  height: 100%;
+  background: #f1e3bd;
+  border: 3px solid var(--ink);
+  z-index: -1;
+}
+.f7-ribbon::before { left: -22px; }
+.f7-ribbon::after { right: -22px; }
+.f7-seven {
+  color: var(--gold);
+  font-size: 2.2em;
+  display: inline-block;
+  transform: rotate(5deg);
+  text-shadow: 2px 2px 0 var(--ink), -1px -1px 0 var(--ink), 1px -1px 0 var(--ink),
+    -1px 1px 0 var(--ink);
+}
+
+/* ---------- Card ---------- */
+.f7-card {
+  position: relative;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: var(--shadow-card);
+  border-left: 6px solid var(--teal-light);
+}
+.f7-card--gold {
+  border-left-color: var(--gold);
+  background: linear-gradient(135deg, #fff 40%, #fff4c7);
+  box-shadow: var(--shadow-accent-glow);
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+.f7-card--sky { border-left-color: var(--sky); box-shadow: var(--shadow-sky-glow); }
+.f7-card--paid { border-left-color: var(--success); }
+.f7-card--pending { border-left-color: var(--gold); }
+.f7-card--cancelled {
+  border-left-color: var(--coral);
+  background: linear-gradient(135deg, #fff 60%, #ffe9e2);
+}
+
+/* ---------- Section title ---------- */
+.f7-title {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding-bottom: 0.6rem;
+  margin-bottom: 1rem;
+  border-bottom: 2px dashed var(--teal-light);
+  font-size: 1.125rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: var(--teal-dark);
+}
+.f7-emoji {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 12px;
+  background: var(--teal-bg);
+  font-size: 1.1rem;
+}
+
+/* ---------- Pill / Badge ---------- */
+.f7-pill {
+  display: inline-block;
+  padding: 0.15rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+.f7-pill--paid { background: var(--success); color: #fff; }
+.f7-pill--pending { background: var(--gold); color: #6b5300; }
+.f7-pill--cancelled { background: var(--coral); color: #fff; box-shadow: var(--shadow-coral-glow); }
+
+/* ---------- Rank avatar ---------- */
+.f7-rank {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 999px;
+  font-weight: 800;
+  color: #fff;
+  background: linear-gradient(135deg, var(--teal-light), var(--teal));
+  width: 36px;
+  height: 36px;
+}
+.f7-rank--1 { width: 44px; height: 44px; font-size: 1.3rem;
+  background: linear-gradient(135deg, var(--gold-light), var(--gold-dark)); }
+.f7-rank--2 { width: 40px; height: 40px; font-size: 1.2rem;
+  background: linear-gradient(135deg, #e5e9ec, #aab4bb); }
+.f7-rank--3 { width: 38px; height: 38px; font-size: 1.1rem;
+  background: linear-gradient(135deg, var(--coral-light), var(--coral-dark)); }
+
+/* ---------- Progress bar ---------- */
+.f7-bar { height: 8px; border-radius: 999px; background: var(--teal-bg); overflow: hidden; }
+.f7-bar > span {
+  display: block; height: 100%; border-radius: 999px;
+  background: linear-gradient(90deg, var(--teal), var(--teal-light));
+}
+
+/* ---------- Animations ---------- */
+@keyframes glow-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.015); }
+}
+@keyframes crown-bounce {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  25% { transform: translateY(-4px) rotate(-8deg); }
+  50% { transform: translateY(0) rotate(0); }
+  75% { transform: translateY(-3px) rotate(8deg); }
+}
+.f7-crown { display: inline-block; animation: crown-bounce 1.5s infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .f7-card--gold, .f7-crown { animation: none; }
 }
